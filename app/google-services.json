@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "590564434999",
+    "project_id": "equityafia-17c39",
+    "storage_bucket": "equityafia-17c39.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:590564434999:android:7f19b30def4a1ad6610bb2",
+        "android_client_info": {
+          "package_name": "com.hackathon.equityafia"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "590564434999-3a2tga2b6tm6e6kj5tabefei7qoacj8g.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hackathon.equityafia",
+            "certificate_hash": "ef1b84a6097d627cef7b70d808017ee69472b02a"
+          }
+        },
+        {
+          "client_id": "590564434999-mfn79dmesfelhsbhv3qj4doavdfsivj3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBnNDP9i6ugaK3qqKSudgQ_1s_wVGqjZSg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "590564434999-mfn79dmesfelhsbhv3qj4doavdfsivj3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
