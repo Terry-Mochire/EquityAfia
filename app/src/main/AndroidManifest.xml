@@ -4,6 +4,7 @@
     package="com.hackathon.equityafia">
 
     <application
+        android:name=".MainActivity"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -14,8 +15,9 @@
         android:theme="@style/Theme.EquityAfia"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
+            android:name=".feature_auth.presentation.AuthActivity"
             android:exported="true"
+            android:label="@string/title_activity_auth"
             android:theme="@style/Theme.EquityAfia">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
