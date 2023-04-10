@@ -1,5 +1,6 @@
 package com.hackathon.equityafia.feature_auth.presentation
 
+import android.app.Activity
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.ClickableText
@@ -19,13 +20,19 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
 import com.hackathon.equityafia.R
 import com.hackathon.equityafia.feature_navigation.Screens
 import com.hackathon.equityafia.ui.theme.EquityAfiaTheme
 
+
 @Composable
-fun SignUpScreen(navController: NavHostController) {
+fun SignUpScreen(
+    navController: NavHostController,
+    repository: AuthRepository,
+    viewModel: AuthViewModel = AuthViewModel(repository)
+) {
+    val activity = (navController.currentBackStackEntry?.destination?.route as? Activity)
+
     EquityAfiaTheme {
         Surface(
             modifier = Modifier.fillMaxSize(),
@@ -98,31 +105,47 @@ fun SignUpScreen(navController: NavHostController) {
                         .padding(10.dp)
                 )
 
-                Button(onClick = { /*TODO*/ }) {
+                Button(onClick = {
+                   val response = viewModel.firebaseSignUpWithEmailAndPassword(
+                        email = email.value.text,
+                        password = newPassword.value.text,
+                        password2 = confirmPassword.value.text,
+                    )
+
+                    if (response) {
+                        navController.navigate(Screens.HomeScreen.route)
+                    }
+
+                }) {
                     Text("Sign Up")
                 }
 
                 Spacer(modifier = Modifier.height(20.dp))
-                Text(text = "Or Sign Up with")
-
-                Button(onClick = { /*TODO*/ }) {
-                    Row {
-                        Image(
-                            painter = painterResource(id = R.drawable.google),
-                            contentDescription = "",
-                            modifier = Modifier
-                                .size(20.dp)
-                                .align(Alignment.CenterVertically)
-                        )
-
-                        Text(
-                            text = "Google",
-                            modifier = Modifier.padding(start = 10.dp)
-                        )
-
-                    }
-
-                }
+//                Text(text = "Or Sign Up with")
+//
+//                Button(onClick = {
+//                    val response = activity?.let { viewModel.firebaseSignInWithGoogle(activity = it) }
+//                    if (response == true) {
+//                        navController.navigate(Screens.HomeScreen.route)
+//                    }
+//                }) {
+//                    Row {
+//                        Image(
+//                            painter = painterResource(id = R.drawable.google),
+//                            contentDescription = "",
+//                            modifier = Modifier
+//                                .size(20.dp)
+//                                .align(Alignment.CenterVertically)
+//                        )
+//
+//                        Text(
+//                            text = "Google",
+//                            modifier = Modifier.padding(start = 10.dp)
+//                        )
+//
+//                    }
+//
+//                }
 
 
             }
@@ -136,6 +159,7 @@ fun SignUpScreen(navController: NavHostController) {
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun SignUpScreenPreview() {
-    val navController = rememberNavController()
-    SignUpScreen(navController)
+//    val navController = rememberNavController()
+
+//    SignUpScreen(navController)
 }

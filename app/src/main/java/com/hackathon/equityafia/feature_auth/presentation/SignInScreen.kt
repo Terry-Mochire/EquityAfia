@@ -21,10 +21,15 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.hackathon.equityafia.R
+import com.hackathon.equityafia.feature_navigation.Screens
 import com.hackathon.equityafia.ui.theme.EquityAfiaTheme
 
 @Composable
-fun SignInScreen(navController: NavHostController) {
+fun SignInScreen(
+    navController: NavHostController,
+    repository: AuthRepository,
+    viewModel: AuthViewModel = AuthViewModel(repository)
+) {
     EquityAfiaTheme() {
         Surface(
             modifier = Modifier.fillMaxSize(),
@@ -50,13 +55,13 @@ fun SignInScreen(navController: NavHostController) {
                 verticalArrangement = Arrangement.Center
             ) {
 
-                val username = remember { mutableStateOf(TextFieldValue()) }
+                val email = remember { mutableStateOf(TextFieldValue()) }
                 val password = remember { mutableStateOf(TextFieldValue()) }
 
                 OutlinedTextField(
-                    value = username.value,
-                    onValueChange = { username.value = it },
-                    label = { Text("Username") },
+                    value = email.value,
+                    onValueChange = { email.value = it },
+                    label = { Text("Email") },
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(10.dp)
@@ -72,32 +77,40 @@ fun SignInScreen(navController: NavHostController) {
                 )
 
                 Button(
-                    onClick = { /*TODO*/ }
+                    onClick = {
+                        val response = viewModel.firebaseSignInWithEmailAndPassword(
+                            email.value.text,
+                            password.value.text
+                        )
+                        if (response) {
+                            navController.navigate(Screens.HomeScreen.route)
+                        }
+                    }
                 ) {
                     Text("Sign in")
                 }
 
-                Text(text = "Or sign with", modifier = Modifier.padding(10.dp))
-
-                Button(
-                    onClick = { /*TODO*/ }
-                ) {
-                    Row {
-                        Image(
-                            painter = painterResource(id = R.drawable.google),
-                            contentDescription = "",
-                            modifier = Modifier
-                                .size(20.dp)
-                                .align(Alignment.CenterVertically)
-                        )
-
-                        Text(
-                            text = "Google",
-                            modifier = Modifier.padding(start = 10.dp)
-                        )
-
-                    }
-                }
+//                Text(text = "Or sign with", modifier = Modifier.padding(10.dp))
+//
+//                Button(
+//                    onClick = { /*TODO*/ }
+//                ) {
+//                    Row {
+//                        Image(
+//                            painter = painterResource(id = R.drawable.google),
+//                            contentDescription = "",
+//                            modifier = Modifier
+//                                .size(20.dp)
+//                                .align(Alignment.CenterVertically)
+//                        )
+//
+//                        Text(
+//                            text = "Google",
+//                            modifier = Modifier.padding(start = 10.dp)
+//                        )
+//
+//                    }
+//                }
 
             }
 
@@ -110,6 +123,6 @@ fun SignInScreen(navController: NavHostController) {
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun SignInScreenPreview() {
-    val navController = rememberNavController()
-    SignInScreen(navController)
+//    val navController = rememberNavController()
+//    SignInScreen(navController, )
 }

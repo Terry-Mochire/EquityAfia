@@ -7,6 +7,8 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
+import com.hackathon.equityafia.feature_auth.presentation.AuthRepository
+import com.hackathon.equityafia.feature_auth.presentation.AuthViewModel
 import com.hackathon.equityafia.feature_auth.presentation.SignInScreen
 import com.hackathon.equityafia.feature_auth.presentation.SignUpScreen
 import com.hackathon.equityafia.feature_home.presentation.HomeScreen
@@ -23,14 +25,18 @@ fun NavGraph(
         enterTransition = {EnterTransition.None },
         exitTransition = { ExitTransition.None },
         builder = {
+
+            val authRepository = AuthRepository()
+            val authViewModel = AuthViewModel(authRepository = authRepository)
+
             composable(Screens.SignInScreen.route){
-                SignInScreen(navController = navController)
+                SignInScreen(navController = navController, repository = authRepository ,viewModel = authViewModel)
             }
             composable(Screens.SignUpScreen.route){
-                SignUpScreen(navController = navController)
+                SignUpScreen(navController = navController, repository = authRepository ,viewModel = authViewModel)
             }
             composable(Screens.HomeScreen.route){
-                HomeScreen(navController = navController)
+                HomeScreen(navController = navController, viewModel = authViewModel)
             }
         },
 

@@ -3,6 +3,7 @@ package com.hackathon.equityafia.feature_auth.presentation
 
 import android.app.Activity
 import androidx.core.app.ActivityCompat.startActivityForResult
+import androidx.navigation.compose.rememberNavController
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
@@ -48,35 +49,39 @@ class AuthRepository @Inject constructor() {
     suspend fun firebaseSignUpWithEmailAndPassword(
         email: String,
         password: String
-    ) {
+    ): Boolean{
         try {
             firebaseAuth.createUserWithEmailAndPassword(email, password).await()
+            return true
         } catch (e: Exception) {
-            throw e
+            println("Exception $e")
+            return false
         }
     }
 
     @Singleton
     @Provides
-    suspend fun firebaseSignInWithEmailAndPassword(email: String, password: String) {
+    suspend fun firebaseSignInWithEmailAndPassword(email: String, password: String): Boolean {
         try {
             firebaseAuth.signInWithEmailAndPassword(email, password).await()
+            return true
         } catch (e: Exception) {
-            throw e
+            println("Exception $e")
+            return false
         }
     }
 
     @Singleton
     @Provides
-    suspend fun firebaseSignInWithGoogle() {
+    suspend fun firebaseSignInWithGoogle(activity: Activity) {
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestEmail()
             .build()
 
-        val googleSignInClient = GoogleSignIn.getClient(Activity(), gso)
+        val googleSignInClient = GoogleSignIn.getClient(activity, gso)
 
         val signInIntent = googleSignInClient.signInIntent
-        startActivityForResult(Activity(), signInIntent, 1, null)
+        startActivityForResult(activity, signInIntent, 1, null)
 
 
     }
