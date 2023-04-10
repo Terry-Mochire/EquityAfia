@@ -2,6 +2,8 @@ package com.hackathon.equityafia.feature_clinics.data.remote.api
 
 import com.hackathon.equityafia.feature_clinics.data.remote.models.requests.Location
 import com.hackathon.equityafia.feature_clinics.data.remote.models.responses.*
+import okhttp3.ResponseBody
+import retrofit2.Response
 import retrofit2.http.*
 
 interface ApiService {
@@ -9,7 +11,7 @@ interface ApiService {
 
     //GET CSRF TOKEN
     @GET("get_csrf_token")
-    suspend fun getCsrfToken(@Header("Cookie") cookie: String?): String
+    suspend fun getCsrfToken(): TokenResponse
 
     //Get all clinics
     @GET("clinics")
@@ -19,14 +21,14 @@ interface ApiService {
     @GET("clinics/{id}")
     suspend fun getClinicById(
         @Path("id") id: Int
-    ): ClinicResponse
+    ): List<AllClinicsResponseItem>
 
     //get clinic by name
     @POST("search_by_name/{name}")
     suspend fun getClinicByName(
         @Header("X-CSRFToken") csrfToken: String?,
         @Path("name") name: String
-    ): ClinicResponse
+    ): List<AllClinicsResponseItem>
 
     //Get clinic in a location
     @POST("search/")
