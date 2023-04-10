@@ -2,8 +2,6 @@ package com.hackathon.equityafia.feature_clinics.data.remote.api
 
 import com.hackathon.equityafia.feature_clinics.data.remote.models.requests.Location
 import com.hackathon.equityafia.feature_clinics.data.remote.models.responses.*
-import okhttp3.ResponseBody
-import retrofit2.Response
 import retrofit2.http.*
 
 interface ApiService {
