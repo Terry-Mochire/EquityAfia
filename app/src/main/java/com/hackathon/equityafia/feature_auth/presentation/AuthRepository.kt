@@ -73,7 +73,7 @@ class AuthRepository @Inject constructor() {
 
     @Singleton
     @Provides
-    suspend fun firebaseSignInWithGoogle(activity: Activity) {
+    fun firebaseSignInWithGoogle(activity: Activity) {
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestEmail()
             .build()
@@ -117,7 +117,7 @@ class AuthRepository @Inject constructor() {
                     .build()
             )?.await()
             firebaseAuth.currentUser?.updateEmail(email)?.await()
-            if( password != ""){
+            if( password != "" && password == password2){
                 firebaseAuth.currentUser?.updatePassword(password)?.await()
             }
             true
