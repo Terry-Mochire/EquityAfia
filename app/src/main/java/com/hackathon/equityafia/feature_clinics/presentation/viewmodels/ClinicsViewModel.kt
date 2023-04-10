@@ -1,4 +1,4 @@
-package com.hackathon.equityafia.feature_clinics.presentation
+package com.hackathon.equityafia.feature_clinics.presentation.viewmodels
 
 import androidx.compose.runtime.MutableState
 import androidx.lifecycle.ViewModel

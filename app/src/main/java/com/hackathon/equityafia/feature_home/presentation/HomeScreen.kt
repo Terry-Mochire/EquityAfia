@@ -19,7 +19,7 @@ import androidx.navigation.compose.rememberNavController
 import com.hackathon.equityafia.R
 import com.hackathon.equityafia.feature_auth.presentation.AuthRepository
 import com.hackathon.equityafia.feature_auth.presentation.AuthViewModel
-import com.hackathon.equityafia.feature_clinics.presentation.ClinicsViewModel
+import com.hackathon.equityafia.feature_clinics.presentation.viewmodels.ClinicsViewModel
 import com.hackathon.equityafia.feature_home.components.ClinicCard
 import com.hackathon.equityafia.feature_navigation.Screens
 import com.hackathon.equityafia.ui.theme.EquityAfiaTheme
