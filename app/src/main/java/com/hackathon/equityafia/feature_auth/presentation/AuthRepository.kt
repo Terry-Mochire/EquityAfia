@@ -71,20 +71,19 @@ class AuthRepository @Inject constructor() {
         }
     }
 
-    @Singleton
-    @Provides
-    fun firebaseSignInWithGoogle(activity: Activity) {
-        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestEmail()
-            .build()
-
-        val googleSignInClient = GoogleSignIn.getClient(activity, gso)
-
-        val signInIntent = googleSignInClient.signInIntent
-        startActivityForResult(activity, signInIntent, 1, null)
-
-
-    }
+//    @Singleton
+//    @Provides
+//    fun firebaseSignInWithGoogle(activity: Activity) {
+//        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+//            .requestEmail()
+//            .build()
+//
+//        val googleSignInClient = GoogleSignIn.getClient(activity, gso)
+//
+//        val signInIntent = googleSignInClient.signInIntent
+//        startActivityForResult(activity, signInIntent, 1, null)
+//
+//    }
 
     @Singleton
     @Provides

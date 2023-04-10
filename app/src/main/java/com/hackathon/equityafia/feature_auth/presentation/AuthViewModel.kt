@@ -50,12 +50,12 @@ class AuthViewModel @Inject constructor(
 
     }
 
-    fun firebaseSignInWithGoogle(activity: Activity): Boolean {
-        viewModelScope.launch {
-            return@launch(authRepository.firebaseSignInWithGoogle(activity))
-        }
-        return false
-    }
+//    fun firebaseSignInWithGoogle(activity: Activity): Boolean {
+//        viewModelScope.launch {
+//            return@launch(authRepository.firebaseSignInWithGoogle(activity))
+//        }
+//        return false
+//    }
 
     fun firebaseSignOut() {
         viewModelScope.launch {
