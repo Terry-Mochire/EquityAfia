@@ -9,10 +9,12 @@ data class AllClinicsResponseItem(
 )
 
 data class Fields(
+    val address: String,
     val country: Int,
     val county: Int,
     val doctor_in_charge: String,
     val email: String,
+    val image: String,
     val list_of_services: List<Int>,
     val name: String,
     val sub_county: Int,
