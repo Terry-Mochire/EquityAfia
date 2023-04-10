@@ -14,6 +14,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
@@ -33,6 +35,9 @@ fun HomeScreen(
     viewModel: AuthViewModel,
     clinicsViewModel: ClinicsViewModel
 ) {
+    LocalContext.current.applicationContext
+
+    val focusManager = LocalFocusManager.current
 
     EquityAfiaTheme {
         Surface(
@@ -150,7 +155,11 @@ fun HomeScreen(
                                     imeAction = ImeAction.Search
                                 ),
                                 keyboardActions = KeyboardActions(
-                                    onSearch = {/*TODO: Implement search*/ },
+                                    onSearch = {
+                                        clinicsViewModel.getClinic(searchText.value)
+                                        focusManager.clearFocus()
+                                        searchText.value = ""
+                                    },
                                     onDone = null
                                 ),
                                 trailingIcon = {
