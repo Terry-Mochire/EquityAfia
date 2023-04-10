@@ -19,16 +19,21 @@ import androidx.navigation.compose.rememberNavController
 import com.hackathon.equityafia.R
 import com.hackathon.equityafia.feature_auth.presentation.AuthRepository
 import com.hackathon.equityafia.feature_auth.presentation.AuthViewModel
+import com.hackathon.equityafia.feature_clinics.presentation.ClinicsViewModel
 import com.hackathon.equityafia.feature_home.components.ClinicCard
 import com.hackathon.equityafia.feature_navigation.Screens
 import com.hackathon.equityafia.ui.theme.EquityAfiaTheme
+
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
     navController: NavHostController,
-    viewModel: AuthViewModel
+    viewModel: AuthViewModel,
+    clinicsViewModel: ClinicsViewModel
 ) {
+
     EquityAfiaTheme(
     ) {
         Surface(
@@ -130,6 +135,9 @@ fun HomeScreen(
                             )
                         }
                     }
+                    clinicsViewModel.clinics.value?.let {
+                        println("Clinics are ${clinicsViewModel.clinics.value}")
+                    }
                     LazyVerticalGrid(
                         columns = GridCells.Fixed(2),
                         contentPadding = PaddingValues(10.dp),
@@ -163,5 +171,6 @@ fun HomeScreenPreview() {
     val navController = rememberNavController()
     val repository = AuthRepository()
     val viewModel = AuthViewModel(repository)
-    HomeScreen(navController, viewModel)
+//    val clinicsViewModel = ClinicsViewModel()
+//    Screens.HomeScreen(navController, viewModel)
 }
