@@ -30,7 +30,6 @@ fun HomeScreen(
     viewModel: AuthViewModel
 ) {
     EquityAfiaTheme(
-        darkTheme = true
     ) {
         Surface(
             modifier = Modifier.fillMaxSize(),
@@ -72,6 +71,21 @@ fun HomeScreen(
                                     leadingIcon = {
                                         Icon(
                                             painter = painterResource(id = R.drawable.ic_baseline_logout),
+                                            contentDescription = null )
+                                    }
+                                )
+                                DropdownMenuItem(
+                                    onClick = {
+                                        navController.navigate(Screens.ProfileScreen.route){
+                                            popUpTo(Screens.HomeScreen.route){
+                                                inclusive = true
+                                            }
+                                        }
+                                    },
+                                    text = { Text(text = "Edit Profile") },
+                                    leadingIcon = {
+                                        Icon(
+                                            painter = painterResource(id = R.drawable.ic_baseline_account_circle_24),
                                             contentDescription = null )
                                     }
                                 )

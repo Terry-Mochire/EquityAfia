@@ -1,10 +1,13 @@
 package com.hackathon.equityafia.feature_auth.presentation
 
 import android.app.Activity
+import android.os.Parcel
+import android.os.Parcelable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.compose.rememberNavController
+import com.google.firebase.auth.FirebaseUser
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -77,5 +80,19 @@ class AuthViewModel @Inject constructor(
         return true
 
     }
+
+    fun updateUserDetails(name: String, phone: String, email: String, password: String, password2: String): Boolean {
+        return try {
+            viewModelScope.launch {
+                authRepository.updateUserDetails(name, phone, email, password, password2)
+            }
+            true
+        } catch (e: Exception) {
+            println("Exception $e")
+            false
+        }
+
+    }
+
 
 }

@@ -7,10 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
-import com.hackathon.equityafia.feature_auth.presentation.AuthRepository
-import com.hackathon.equityafia.feature_auth.presentation.AuthViewModel
-import com.hackathon.equityafia.feature_auth.presentation.SignInScreen
-import com.hackathon.equityafia.feature_auth.presentation.SignUpScreen
+import com.hackathon.equityafia.feature_auth.presentation.*
 import com.hackathon.equityafia.feature_home.presentation.HomeScreen
 
 
@@ -38,6 +35,11 @@ fun NavGraph(
             composable(Screens.HomeScreen.route){
                 HomeScreen(navController = navController, viewModel = authViewModel)
             }
+
+            composable(Screens.ProfileScreen.route){
+                ProfileScreen(navController = navController, viewModel = authViewModel)
+            }
+
         },
 
     )

@@ -106,6 +106,26 @@ class AuthRepository @Inject constructor() {
             throw e
         }
     }
+
+    @Singleton
+    @Provides
+    suspend fun updateUserDetails(name: String, phone: String, email: String, password: String, password2: String): Boolean{
+        return try {
+           firebaseAuth.currentUser?.updateProfile(
+                com.google.firebase.auth.UserProfileChangeRequest.Builder()
+                    .setDisplayName(name)
+                    .build()
+            )?.await()
+            firebaseAuth.currentUser?.updateEmail(email)?.await()
+            if( password != ""){
+                firebaseAuth.currentUser?.updatePassword(password)?.await()
+            }
+            true
+        } catch (e: Exception) {
+            println(e)
+            throw e
+        }
+    }
 }
 
 
