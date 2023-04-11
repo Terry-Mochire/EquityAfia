@@ -33,7 +33,7 @@ interface ApiService {
     suspend fun getClinicByLocation(
         @Header("X-CSRFToken") csrfToken: String?,
         @Body location: Location
-    ): ClinicResponse
+    ): List<AllClinicsResponseItem>
 
 
     //Get all countries
