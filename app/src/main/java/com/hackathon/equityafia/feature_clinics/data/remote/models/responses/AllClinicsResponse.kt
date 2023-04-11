@@ -1,5 +1,8 @@
 package com.hackathon.equityafia.feature_clinics.data.remote.models.responses
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
 class AllClinicsResponse : ArrayList<AllClinicsResponseItem>()
 
 data class AllClinicsResponseItem(
@@ -8,6 +11,7 @@ data class AllClinicsResponseItem(
     val pk: Int
 )
 
+@Parcelize
 data class Fields(
     val address: String,
     val country: Int,
@@ -19,4 +23,4 @@ data class Fields(
     val name: String,
     val sub_county: Int,
     val telephone: String
-)
+): Parcelable
