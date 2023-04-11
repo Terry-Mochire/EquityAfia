@@ -54,4 +54,14 @@ interface ApiService {
         @Path("county_id") countyId: Int
     ): List<AllSubCountiesResponseItem>
 
+    //Get all services
+    @GET("services")
+    suspend fun getAllServices(): List<AllServicesResponseItem>
+
+    //Get all services in a clinic
+    @GET("services_in_clinic/{clinic_id}")
+    suspend fun getAllServicesInAClinic(
+        @Path("clinic_id") clinicId: Int
+    ): List<AllServicesResponseItem>
+
 }
