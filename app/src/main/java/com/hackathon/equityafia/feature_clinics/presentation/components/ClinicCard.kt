@@ -1,6 +1,5 @@
 package com.hackathon.equityafia.feature_home.components
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ElevatedCard
@@ -12,7 +11,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
@@ -24,10 +22,11 @@ fun ClinicCard(
     image: String,
     clinicName: String,
     clinicAddress: String,
+    onClick: () -> Unit
 ) {
     ElevatedCard(
         onClick = {
-            /*TODO*/
+            onClick()
         },
         shape = RoundedCornerShape(16.dp),
         modifier = Modifier
@@ -57,14 +56,4 @@ fun ClinicCard(
 
     }
 
-}
-
-
-@Preview
-@Composable
-fun ClinicCardPreview() {
-    val image = "https://www.google.com"
-    val clinicName = "Buruburu Clinic"
-    val clinicAddress = "The Point Mall, Rabai Road"
-    ClinicCard(image = image, clinicName = clinicName, clinicAddress = clinicAddress)
 }
