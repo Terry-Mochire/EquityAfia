@@ -22,6 +22,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.hackathon.equityafia.R
 import com.hackathon.equityafia.feature_auth.presentation.AuthViewModel
+import com.hackathon.equityafia.feature_clinics.data.remote.models.responses.ClinicResponseItem
 import com.hackathon.equityafia.feature_clinics.presentation.viewmodels.ClinicsViewModel
 import com.hackathon.equityafia.feature_home.components.ClinicCard
 import com.hackathon.equityafia.feature_navigation.Screens
@@ -192,6 +193,15 @@ fun HomeScreen(
                                             image = it.fields.image,
                                             clinicName = it.fields.name,
                                             clinicAddress = it.fields.address,
+                                            onClick = {
+                                                    val clinic = ClinicResponseItem(
+                                                        fields = it.fields,
+                                                        model = it.model,
+                                                        pk = it.pk
+                                                    )
+                                                navController.currentBackStackEntry?.arguments?.putParcelable("clinic", clinic)
+                                                    navController.navigate(Screens.ClinicDetailsScreen.route)
+                                            }
                                         )
                                     }
 
