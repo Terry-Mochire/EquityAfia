@@ -1,5 +1,6 @@
 package com.hackathon.equityafia.feature_clinics.di
 
+import com.google.gson.GsonBuilder
 import com.hackathon.equityafia.feature_clinics.data.remote.api.ApiService
 import com.hackathon.equityafia.feature_clinics.data.repository.ApiRepository
 import com.hackathon.equityafia.util.Constants.BASE_URL
@@ -14,6 +15,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
+
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -32,7 +34,7 @@ object ApiModule {
             .addInterceptor(httpLoggingInterceptor)
             .addInterceptor { chain ->
                 val original: Request = chain.request().newBuilder()
-                    .addHeader("Cookie",  "csrftoken=qLKrwnPRzrKunPF6tE9zaRddPzlaPT7d")
+                    .addHeader("Cookie",  "csrftoken=qLKrwnPRzrKunPF6tE9zaRddPzlaPT7d; messages=.eJyLjlaKj88qzs-Lz00tLk5MT1XSMdAxMdBRCshJTSxOVShOzUlNLlFIBDKKyjKTUxUS81IUknMy8zKTlXSUlGJ1RvWP6h_VT7b-WACcnyhq:1pmAMW:-TiQV29ec0d4Xca-pPXfRdJP4bOvl2WpDhgqRTiPjUY; sessionid=t2f8l1y58pvp3r0fbhkzhfisb70ms0dk")
                     .build()
                 chain.proceed(original)
             }

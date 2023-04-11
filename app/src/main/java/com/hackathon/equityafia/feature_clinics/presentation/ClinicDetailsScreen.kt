@@ -201,7 +201,8 @@ fun ClinicDetailsScreen(
                             item {
                                 Button(
                                     onClick = {
-                                        /*TODO*/
+                                        navController.currentBackStackEntry?.arguments?.putParcelable("clinic", clinic)
+                                        navController.navigate(Screens.AppointmentFormScreen.route)
                                     },
                                     modifier = Modifier
                                         .fillMaxWidth()

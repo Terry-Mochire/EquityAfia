@@ -7,7 +7,11 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
+import com.hackathon.equityafia.feature_appointments.presentation.viewmodels.AppointmentDetailsScreen
+import com.hackathon.equityafia.feature_appointments.presentation.viewmodels.AppointmentFormScreen
+import com.hackathon.equityafia.feature_appointments.presentation.viewmodels.AppointmentsViewModel
 import com.hackathon.equityafia.feature_auth.presentation.*
+import com.hackathon.equityafia.feature_clinics.data.remote.models.requests.Booking
 import com.hackathon.equityafia.feature_clinics.data.remote.models.responses.ClinicResponseItem
 import com.hackathon.equityafia.feature_clinics.data.repository.ApiRepository
 import com.hackathon.equityafia.feature_clinics.di.ApiModule
@@ -35,6 +39,7 @@ fun NavGraph(
             val okHttpClient = ApiModule.providesOkHttpClient(httpLoggingInterceptor)
             val apiService = ApiModule.providesAPIService(okHttpClient)
             val clinicsViewModel = ClinicsViewModel(repository = ApiRepository(apiService = apiService))
+            val appointmentsViewModel = AppointmentsViewModel(repository = ApiRepository(apiService = apiService))
 
             composable(Screens.SignInScreen.route){
                 SignInScreen(navController = navController, repository = authRepository ,viewModel = authViewModel)
@@ -57,6 +62,19 @@ fun NavGraph(
 
             composable(Screens.LocationsFormScreen.route){
                 LocationsFormScreen(navController = navController, viewModel = authViewModel, clinicsViewModel = clinicsViewModel)
+            }
+
+            composable(Screens.AppointmentFormScreen.route){
+                val clinic = navController.previousBackStackEntry?.arguments?.getParcelable<ClinicResponseItem>("clinic")
+                println(
+                    "NavControllerClinic: $clinic"
+                )
+                AppointmentFormScreen(navController = navController, authViewModel = authViewModel, viewModel = appointmentsViewModel, clinic = clinic!!)
+            }
+
+            composable(Screens.AppointmentDetailsScreen.route) {
+                val booking = navController.previousBackStackEntry?.arguments?.getParcelable<Booking>("booking")
+               AppointmentDetailsScreen()
             }
 
         },

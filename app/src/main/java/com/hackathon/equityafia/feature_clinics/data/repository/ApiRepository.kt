@@ -3,9 +3,13 @@ package com.hackathon.equityafia.feature_clinics.data.repository
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import com.hackathon.equityafia.feature_clinics.data.remote.api.ApiService
+import com.hackathon.equityafia.feature_clinics.data.remote.models.requests.Book
+import com.hackathon.equityafia.feature_clinics.data.remote.models.requests.Booking
 import com.hackathon.equityafia.feature_clinics.data.remote.models.requests.Location
+import com.hackathon.equityafia.feature_clinics.data.remote.models.requests.User
 import com.hackathon.equityafia.feature_clinics.data.remote.models.responses.*
 import javax.inject.Inject
+import kotlin.text.Typography.times
 
 class ApiRepository @Inject constructor(private val apiService: ApiService) {
 
@@ -14,6 +18,9 @@ class ApiRepository @Inject constructor(private val apiService: ApiService) {
     val countries: MutableState<List<AllCountriesResponseItem>> = mutableStateOf(emptyList())
     val counties: MutableState<List<AllCountiesResponseItem>> = mutableStateOf(emptyList())
     val subCounties: MutableState<List<AllSubCountiesResponseItem>> = mutableStateOf(emptyList())
+
+    val availableDates: MutableState<AvailableDatesResponse> = mutableStateOf(AvailableDatesResponse(emptyList()))
+    val availableTimes: MutableState<AvailableTimesResponse> = mutableStateOf(AvailableTimesResponse(emptyList()))
 
     private var token:String? = null
 
@@ -57,6 +64,33 @@ class ApiRepository @Inject constructor(private val apiService: ApiService) {
         val response = apiService.getClinicByLocation(getToken(), location)
         clinics.value = response
     }
+
+
+    suspend fun saveUser(user: User) {
+        apiService.saveUser(getToken(), user)
+    }
+
+    // Appointments
+    suspend fun getAvailableDates() {
+        val response = apiService.getAvailableDates()
+        availableDates.value = response
+    }
+
+    suspend fun getAvailableTimes(user_ID: String) {
+        val response = apiService.getAvailableTimes(user_ID)
+        availableTimes.value = response
+    }
+
+    suspend fun bookAppointment(booking: Booking): BookAppointmentResponse {
+       return apiService.bookAppointment(getToken(),booking)
+    }
+
+    suspend fun book(user_id:String, book: Book): BookAppointmentResponse{
+        return apiService.book(getToken(), user_id,  book)
+    }
+
+
+
 
 
 }

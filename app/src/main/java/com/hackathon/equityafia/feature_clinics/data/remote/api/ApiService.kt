@@ -1,6 +1,9 @@
 package com.hackathon.equityafia.feature_clinics.data.remote.api
 
+import com.hackathon.equityafia.feature_clinics.data.remote.models.requests.Book
+import com.hackathon.equityafia.feature_clinics.data.remote.models.requests.Booking
 import com.hackathon.equityafia.feature_clinics.data.remote.models.requests.Location
+import com.hackathon.equityafia.feature_clinics.data.remote.models.requests.User
 import com.hackathon.equityafia.feature_clinics.data.remote.models.responses.*
 import retrofit2.http.*
 
@@ -10,6 +13,13 @@ interface ApiService {
     //GET CSRF TOKEN
     @GET("get_csrf_token")
     suspend fun getCsrfToken(): TokenResponse
+
+    //SAVE USER TO DB
+    @POST("save_user")
+    suspend fun saveUser(
+        @Header("X-CSRFToken") csrfToken: String?,
+        @Body user: User
+    ): String
 
     //Get all clinics
     @GET("clinics")
@@ -63,5 +73,31 @@ interface ApiService {
     suspend fun getAllServicesInAClinic(
         @Path("clinic_id") clinicId: Int
     ): List<AllServicesResponseItem>
+
+
+    // Get available dates
+    @GET("booking")
+    suspend fun getAvailableDates(): AvailableDatesResponse
+
+    // Get available times
+    @GET("booking_submit/{user_id}")
+    suspend fun getAvailableTimes(
+        @Path("user_id") userId: String,
+    ): AvailableTimesResponse
+
+    // Book an appointment
+    @POST("booking")
+    suspend fun bookAppointment(
+        @Header("X-CSRFToken") csrfToken: String?,
+        @Body booking: Booking
+    ): BookAppointmentResponse
+
+    @POST("booking_submit/{user_id}")
+    suspend fun book(
+        @Header("X-CSRFToken") csrfToken: String?,
+        @Path("user_id") userId: String,
+        @Body book: Book
+    ): BookAppointmentResponse
+
 
 }
