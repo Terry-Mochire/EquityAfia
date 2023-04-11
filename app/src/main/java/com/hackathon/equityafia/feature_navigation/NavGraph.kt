@@ -12,6 +12,7 @@ import com.hackathon.equityafia.feature_clinics.data.remote.models.responses.Cli
 import com.hackathon.equityafia.feature_clinics.data.repository.ApiRepository
 import com.hackathon.equityafia.feature_clinics.di.ApiModule
 import com.hackathon.equityafia.feature_clinics.presentation.ClinicDetailsScreen
+import com.hackathon.equityafia.feature_clinics.presentation.LocationsFormScreen
 import com.hackathon.equityafia.feature_clinics.presentation.viewmodels.ClinicsViewModel
 import com.hackathon.equityafia.feature_home.presentation.HomeScreen
 
@@ -52,7 +53,10 @@ fun NavGraph(
             composable(Screens.ClinicDetailsScreen.route){
                 val clinic = navController.previousBackStackEntry?.arguments?.getParcelable<ClinicResponseItem>("clinic")
                 ClinicDetailsScreen(clinic = clinic!!, clinicsViewModel = clinicsViewModel, navController = navController, viewModel = authViewModel )
+            }
 
+            composable(Screens.LocationsFormScreen.route){
+                LocationsFormScreen(navController = navController, viewModel = authViewModel, clinicsViewModel = clinicsViewModel)
             }
 
         },
