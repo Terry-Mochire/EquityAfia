@@ -8,8 +8,10 @@ import androidx.navigation.NavHostController
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
 import com.hackathon.equityafia.feature_auth.presentation.*
+import com.hackathon.equityafia.feature_clinics.data.remote.models.responses.ClinicResponseItem
 import com.hackathon.equityafia.feature_clinics.data.repository.ApiRepository
 import com.hackathon.equityafia.feature_clinics.di.ApiModule
+import com.hackathon.equityafia.feature_clinics.presentation.ClinicDetailsScreen
 import com.hackathon.equityafia.feature_clinics.presentation.viewmodels.ClinicsViewModel
 import com.hackathon.equityafia.feature_home.presentation.HomeScreen
 
@@ -45,6 +47,12 @@ fun NavGraph(
 
             composable(Screens.ProfileScreen.route){
                 ProfileScreen(navController = navController, viewModel = authViewModel)
+            }
+
+            composable(Screens.ClinicDetailsScreen.route){
+                val clinic = navController.previousBackStackEntry?.arguments?.getParcelable<ClinicResponseItem>("clinic")
+                ClinicDetailsScreen(clinic = clinic!!, clinicsViewModel = clinicsViewModel, navController = navController, viewModel = authViewModel )
+
             }
 
         },
