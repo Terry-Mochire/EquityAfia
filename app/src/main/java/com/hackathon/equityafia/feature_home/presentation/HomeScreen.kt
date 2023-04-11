@@ -1,6 +1,7 @@
 package com.hackathon.equityafia.feature_home.presentation
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -18,6 +19,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.hackathon.equityafia.R
@@ -127,12 +129,11 @@ fun HomeScreen(
                             .fillMaxWidth()
                     ) {
                         val userName = viewModel.currentUser?.displayName
-                        println("$userName is the user name")
                         Column {
                             Text(
                                 text = "Hello $userName,",
                                 modifier = Modifier
-                                    .padding(20.dp),
+                                    .padding(top = 10.dp, start = 10.dp),
                                 style = MaterialTheme.typography.headlineLarge,
                                 color = MaterialTheme.colorScheme.onPrimary
                             )
@@ -173,7 +174,25 @@ fun HomeScreen(
                                     .fillMaxWidth()
                                     .align(Alignment.CenterHorizontally)
                                     .padding(8.dp)
-                                    .shadow(elevation = 8.dp, shape = MaterialTheme.shapes.small, clip = true)
+                                    .shadow(
+                                        elevation = 8.dp,
+                                        shape = MaterialTheme.shapes.small,
+                                        clip = true
+                                    )
+                            )
+                            Text(text = "Nearby Clinics",
+                                modifier = Modifier
+                                    .padding(top = 10.dp, bottom = 10.dp, end = 20.dp)
+                                    .align(Alignment.End)
+                                    .clickable(
+                                        onClick = {
+                                            navController.navigate(Screens.LocationsFormScreen.route)
+                                        }
+                                    )
+                                ,
+                                style = MaterialTheme.typography.labelSmall,
+                                color = MaterialTheme.colorScheme.onPrimary,
+                                textDecoration = TextDecoration.Underline
                             )
                         }
                     }
